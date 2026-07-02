@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Product4u</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080C14;--surface:#0F1623;--surface-2:#141E2E;
+  --border:#1A2332;--border-hover:#263345;
+  --text:#F0F4FF;--muted:#7A8FAD;
+  --accent:#00E676;--accent-dim:rgba(0,230,118,0.1);--accent-dark:#00B35A;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem;background:rgba(8,12,20,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{background:var(--accent)!important;color:#060A0F!important;padding:0.5rem 1.25rem!important;border-radius:100px;font-weight:600!important}
+.nav-cta:hover{background:var(--accent-dark)!important;color:#fff!important}
+
+.page-header{padding:6.5rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(0,230,118,0.05) 0%,transparent 70%);pointer-events:none}
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.625rem}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,2.875rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:0.625rem}
+.page-header p{color:var(--muted);font-size:0.9375rem;max-width:440px;margin:0 auto 1.5rem}
+.search-wrap{max-width:460px;margin:0 auto;position:relative}
+.search-input{width:100%;background:var(--surface);border:1px solid var(--border-hover);border-radius:100px;padding:0.7rem 1.25rem 0.7rem 2.875rem;color:var(--text);font-family:'Inter',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s}
+.search-input::placeholder{color:var(--muted)}
+.search-input:focus{border-color:var(--accent)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+
+.mobile-cats{display:none;overflow-x:auto;gap:0.5rem;padding:0.75rem 1.25rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid var(--border);background:var(--surface)}
+.mobile-cats::-webkit-scrollbar{display:none}
+.mob-btn{flex-shrink:0;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:0.75rem;font-weight:500;padding:0.375rem 0.875rem;border-radius:100px;cursor:pointer;white-space:nowrap;transition:all 0.2s}
+.mob-btn.active{background:var(--accent);border-color:var(--accent);color:#060A0F;font-weight:600}
+
+.shop-layout{max-width:1240px;margin:0 auto;padding:2rem 2rem 6rem;display:grid;grid-template-columns:220px 1fr;gap:2.5rem;align-items:start}
+
+.cat-sidebar{position:sticky;top:5.25rem}
+.sidebar-label{font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding-bottom:0.625rem;margin-bottom:0.375rem;border-bottom:1px solid var(--border)}
+.cat-nav{list-style:none;margin-top:0.5rem;display:flex;flex-direction:column;gap:0.125rem}
+.cat-nav li a{display:flex;align-items:center;gap:0.5rem;color:var(--muted);text-decoration:none;font-size:0.8125rem;font-weight:500;padding:0.45rem 0.625rem;border-radius:8px;transition:all 0.2s;border:1px solid transparent;line-height:1.3}
+.cat-nav li a:hover{color:var(--text);background:var(--surface)}
+.cat-nav li a.active{color:var(--accent);background:var(--accent-dim);border-color:rgba(0,230,118,0.18);font-weight:600}
+.cat-nav li a .ci{font-size:0.9375rem;flex-shrink:0;width:18px;text-align:center}
+.cat-nav li a .cc{margin-left:auto;background:var(--surface-2);color:var(--muted);font-size:0.5625rem;padding:0.1rem 0.4rem;border-radius:100px;border:1px solid var(--border);font-weight:600}
+
+.cat-section{margin-bottom:3.5rem;scroll-margin-top:5.5rem}
+.cat-section-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:0.875rem;border-bottom:1px solid var(--border)}
+.csh-left{display:flex;align-items:center;gap:0.75rem}
+.csh-emoji{font-size:1.375rem;flex-shrink:0}
+.csh-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;letter-spacing:-0.01em;line-height:1.2}
+.csh-desc{font-size:0.75rem;color:var(--muted);margin-top:0.125rem}
+.csh-count{background:var(--surface-2);border:1px solid var(--border);color:var(--muted);font-size:0.6875rem;font-weight:600;padding:0.2rem 0.65rem;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-top:0.25rem}
+
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+
+/* PRODUCT CARD */
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:border-color 0.2s,transform 0.2s;position:relative}
+.product-card:hover{border-color:var(--border-hover);transform:translateY(-3px)}
+.product-card.hidden{display:none}
+
+/* COMING SOON card style — dimmed, no hover lift */
+.product-card.coming-soon{opacity:0.65;cursor:default}
+.product-card.coming-soon:hover{transform:none;border-color:var(--border)}
+
+/* BADGES */
+.pb{position:absolute;top:0.625rem;right:0.625rem;font-size:0.5625rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:0.175rem 0.5rem;border-radius:100px;z-index:2}
+.pb.new{background:#5C6BFF;color:#fff}
+.pb.sale{background:#FF5C5C;color:#fff}
+.pb.hot{background:#F59E0B;color:#060A0F}
+.pb.coming{background:#3A3F52;color:#8A9BC0;border:1px solid #4A5168;letter-spacing:0.08em}
+
+/* COMING SOON overlay on thumb */
+.product-thumb{width:100%;aspect-ratio:4/3;background:var(--surface-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.375rem;border-bottom:1px solid var(--border);position:relative}
+.cs-overlay{position:absolute;inset:0;background:rgba(8,12,20,0.55);display:flex;align-items:center;justify-content:center}
+.cs-label{font-size:0.6875rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#8A9BC0;background:#0F1623;border:1px solid #3A3F52;padding:0.35rem 0.875rem;border-radius:100px}
+.ti{font-size:2rem}
+.tl{font-size:0.5625rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+
+.pb2{padding:1rem}
+.pc{font-size:0.5625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem}
+.pn{font-family:'Playfair Display',serif;font-size:0.9375rem;font-weight:600;line-height:1.3;margin-bottom:0.3rem}
+.pd{font-size:0.75rem;color:var(--muted);line-height:1.5;margin-bottom:0.75rem}
+.pt{display:flex;flex-wrap:wrap;gap:0.25rem;margin-bottom:0.75rem}
+.tag{background:var(--surface-2);color:var(--muted);font-size:0.5625rem;font-weight:500;padding:0.15rem 0.45rem;border-radius:100px;border:1px solid var(--border)}
+
+.pf{display:flex;align-items:center;justify-content:space-between;padding-top:0.75rem;border-top:1px solid var(--border)}
+.pp{font-family:'Playfair Display',serif;font-size:1.125rem;font-weight:700}
+.pp-old{font-size:0.75rem;color:var(--muted);text-decoration:line-through;margin-left:0.25rem}
+
+/* BUY button — normal */
+.pcta{background:var(--accent);color:#060A0F;font-family:'Inter',sans-serif;font-size:0.6875rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;border:none;cursor:pointer;text-decoration:none;transition:background 0.2s;white-space:nowrap}
+.pcta:hover{background:var(--accent-dark);color:#fff}
+
+/* COMING SOON button — disabled look */
+.pcta-cs{background:#1E2535;color:#5A6880;font-family:'Inter',sans-serif;font-size:0.6875rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;border:1px solid #2E3850;cursor:not-allowed;white-space:nowrap;display:inline-flex;align-items:center;gap:0.3rem}
+
+/* NOTIFY button */
+.pcta-notify{background:transparent;color:var(--accent);font-family:'Inter',sans-serif;font-size:0.6875rem;font-weight:600;padding:0.375rem 0.875rem;border-radius:100px;border:1px solid rgba(0,230,118,0.35);cursor:pointer;white-space:nowrap;text-decoration:none;transition:all 0.2s}
+.pcta-notify:hover{background:var(--accent-dim)}
+
+.no-results{display:none;text-align:center;padding:4rem 2rem;color:var(--muted)}
+.no-results h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text);margin-bottom:0.5rem}
+
+.bundle-wrap{margin-top:1rem;background:linear-gradient(135deg,var(--surface) 0%,rgba(0,230,118,0.05) 100%);border:1px solid rgba(0,230,118,0.25);border-radius:18px;padding:2rem;display:grid;grid-template-columns:1fr 160px;gap:2rem;align-items:center}
+.bundle-wrap h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:0.375rem}
+.bundle-wrap p{color:var(--muted);font-size:0.875rem;margin-bottom:1rem;max-width:400px}
+.bchips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem}
+.bchip{background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:0.2rem 0.55rem;font-size:0.6875rem;color:var(--muted)}
+.bprice-col{text-align:center}
+.bprice{font-family:'Playfair Display',serif;font-size:2.125rem;font-weight:700;color:var(--accent);display:block}
+.bwas{font-size:0.8125rem;color:var(--muted);text-decoration:line-through;display:block;margin-bottom:0.375rem}
+.bsave{background:var(--accent-dim);border:1px solid rgba(0,230,118,0.2);color:var(--accent);font-size:0.625rem;font-weight:700;padding:0.175rem 0.6rem;border-radius:100px;display:inline-block;margin-bottom:1rem;letter-spacing:0.06em;text-transform:uppercase}
+.btn-primary{background:var(--accent);color:#060A0F;font-family:'Inter',sans-serif;font-weight:600;font-size:0.875rem;padding:0.7rem 1.625rem;border-radius:100px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;transition:background 0.2s,transform 0.15s}
+.btn-primary:hover{background:var(--accent-dark);color:#fff;transform:translateY(-1px)}
+
+/* COMING SOON BANNER */
+.cs-banner{background:var(--surface);border:1px solid #2E3850;border-radius:12px;padding:1rem 1.25rem;margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem;font-size:0.8125rem;color:var(--muted)}
+.cs-banner-dot{width:8px;height:8px;border-radius:50%;background:#5C6BFF;flex-shrink:0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+footer{border-top:1px solid var(--border);padding:2.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1240px;margin:0 auto}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.125rem;font-weight:700}
+.footer-logo span{color:var(--accent)}
+footer p{color:var(--muted);font-size:0.8125rem}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--muted);font-size:0.8125rem;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--text)}
+
+/* WHO IS THIS FOR SECTION */
+.wif-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3.5rem 2rem}
+.wif-inner{max-width:1240px;margin:0 auto}
+.wif-intro{text-align:center;margin-bottom:2.5rem}
+.wif-intro h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.625rem;line-height:1.2}
+.wif-intro p{color:var(--muted);font-size:0.9375rem;max-width:600px;margin:0 auto;line-height:1.7}
+.wif-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin-bottom:2.5rem}
+.wif-tab{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;padding:0.5rem 1.125rem;border-radius:100px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.wif-tab:hover{border-color:var(--border-hover);color:var(--text)}
+.wif-tab.active{background:var(--accent);border-color:var(--accent);color:#060A0F;font-weight:700}
+.wif-panels{}
+.wif-panel{display:none;animation:fadeIn 0.25s ease}
+.wif-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.wif-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.wif-left h3{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;margin-bottom:0.625rem;line-height:1.3}
+.wif-left .wif-tagline{font-size:0.8125rem;color:var(--accent);font-weight:600;margin-bottom:1rem;letter-spacing:0.02em}
+.wif-left p{font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:0.875rem}
+.wif-points{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-top:1.125rem}
+.wif-points li{font-size:0.8125rem;color:var(--muted);display:flex;align-items:flex-start;gap:0.625rem;line-height:1.55}
+.wif-points li::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0;margin-top:0.05rem}
+.wif-points li strong{color:var(--text)}
+.wif-right{display:flex;flex-direction:column;gap:0.75rem}
+.wif-product-chip{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:0.875rem 1rem;display:flex;align-items:center;gap:0.75rem;transition:border-color 0.2s}
+.wif-product-chip:hover{border-color:var(--border-hover)}
+.wif-chip-icon{font-size:1.25rem;flex-shrink:0}
+.wif-chip-name{font-size:0.8125rem;font-weight:600;color:var(--text)}
+.wif-chip-desc{font-size:0.6875rem;color:var(--muted);margin-top:0.1rem;line-height:1.4}
+.wif-chip-badge{margin-left:auto;font-size:0.5625rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:0.175rem 0.5rem;border-radius:100px;flex-shrink:0}
+.wif-chip-badge.live{background:var(--accent);color:#060A0F}
+.wif-chip-badge.soon{background:#2E3850;color:#7A9BC0}
+.wif-bottom-note{margin-top:2rem;padding:1rem 1.25rem;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:0.8125rem;color:var(--muted);line-height:1.6;text-align:center}
+.wif-bottom-note strong{color:var(--text)}
+@media(max-width:760px){.wif-grid{grid-template-columns:1fr}}
+@media(max-width:960px){.shop-layout{grid-template-columns:1fr}.cat-sidebar{display:none}.mobile-cats{display:flex}}
+@media(max-width:600px){nav{padding:1rem 1.25rem}.nav-links{gap:1rem}.page-header{padding:5.5rem 1.25rem 1.5rem}.shop-layout{padding:1rem 1.25rem 4rem}.products-grid{grid-template-columns:1fr 1fr}.bundle-wrap{grid-template-columns:1fr}.bprice-col{text-align:left}}
+@media(max-width:420px){.products-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Product<span>4u</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="eyebrow">12 Categories · More products launching soon</div>
+  <h1>The complete digital store</h1>
+  <p>Templates, tools, courses, and resources — everything you need to build and grow your business online.</p>
+  <div class="search-wrap">
+    <svg class="search-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input class="search-input" type="text" id="search" placeholder="Search products…" autocomplete="off" />
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- WHO IS THIS FOR — SECTION -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="wif-section">
+  <div class="wif-inner">
+
+    <div class="wif-intro">
+      <div class="eyebrow" style="text-align:center">Who is Product4u for?</div>
+      <h2>One store. Every kind of goal.</h2>
+      <p>Whether you want to improve your life, grow a career, launch a side hustle, or sell on Etsy and Gumroad — the right digital product can get you there faster and cheaper than you think. Pick your path below.</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="wif-tabs">
+      <button class="wif-tab active" data-panel="personal">🌱 Personal Growth</button>
+      <button class="wif-tab" data-panel="academic">🎓 Academic Success</button>
+      <button class="wif-tab" data-panel="betterlife">✨ Better Life</button>
+      <button class="wif-tab" data-panel="predictive">🔮 Future Planning</button>
+      <button class="wif-tab" data-panel="professional">💼 Professional</button>
+      <button class="wif-tab" data-panel="passive">💰 Passive Income</button>
+      <button class="wif-tab" data-panel="minimal">🎯 Minimal Cost Services</button>
+    </div>
+
+    <div class="wif-panels">
+
+      <!-- ① PERSONAL DEVELOPMENT -->
+      <div class="wif-panel active" id="panel-personal">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>Personal Development starts with knowing yourself</h3>
+            <div class="wif-tagline">For people who want to grow intentionally</div>
+            <p>Research consistently shows that people who track their habits, moods, and goals are significantly more likely to achieve lasting change. The problem isn't motivation — it's the lack of a simple system to stay consistent.</p>
+            <p>Our products give you that system. The <strong>Happy Tracker</strong> helps you spot the patterns behind your best and worst days. Digital planners keep your goals visible and your days structured. AI prompt packs help you journal, reflect, and write your way to clarity faster than ever.</p>
+            <p>Personal development isn't about buying more courses and never starting. It's about small daily inputs that compound into massive results over time. Our tools make those daily inputs feel effortless.</p>
+            <ul class="wif-points">
+              <li><strong>Track what makes you happy</strong> — and do more of it deliberately</li>
+              <li><strong>Build habits that stick</strong> with structured daily planner templates</li>
+              <li><strong>Write and reflect faster</strong> using AI journaling prompt packs</li>
+              <li><strong>Set and review goals</strong> with our Notion Second Brain and Life OS templates</li>
+              <li><strong>Spot patterns in your energy and mood</strong> with the Happy Tracker spreadsheet</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">😊</span><div><div class="wif-chip-name">Happy Tracker Spreadsheet</div><div class="wif-chip-desc">Daily mood, energy, and happiness log with pattern charts</div></div><span class="wif-chip-badge live">Available</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🧠</span><div><div class="wif-chip-name">Second Brain — Notion Template</div><div class="wif-chip-desc">Capture ideas, build knowledge, and track personal goals</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📅</span><div><div class="wif-chip-name">Ultimate Life Planner</div><div class="wif-chip-desc">Daily, weekly, and monthly digital planner for GoodNotes / iPad</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">✍️</span><div><div class="wif-chip-name">Business Copywriting AI Pack</div><div class="wif-chip-desc">Includes journaling, reflection, and self-improvement prompts</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>Research insight:</strong> A study by the Dominican University found that people who write down their goals are <strong>42% more likely</strong> to achieve them. Pair a digital planner with the Happy Tracker and you have a system that works.</div>
+      </div>
+
+      <!-- ② ACADEMIC SUCCESS -->
+      <div class="wif-panel" id="panel-academic">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>Academic success is a system, not just effort</h3>
+            <div class="wif-tagline">For students at every level — high school to university</div>
+            <p>The difference between students who struggle and students who thrive usually isn't intelligence — it's organisation. Top-performing students don't just work harder; they work with better systems. They know when every assignment is due, they plan their revision weeks in advance, and they capture notes in a way they can actually use later.</p>
+            <p>Our academic products give every student access to the same systems used by high achievers — at a cost that's far less than a single textbook.</p>
+            <p>The <strong>Student Study Planner</strong> helps you see your entire semester at a glance. The <strong>Second Brain Notion Template</strong> lets you build a searchable knowledge base of everything you learn. And AI prompt packs help you write essays, summarise lectures, and prepare for exams faster.</p>
+            <ul class="wif-points">
+              <li><strong>Never miss a deadline</strong> with a visual assignment and exam tracker</li>
+              <li><strong>Study smarter, not longer</strong> — schedule revision using spaced repetition principles</li>
+              <li><strong>Write better essays faster</strong> using AI writing prompt packs</li>
+              <li><strong>Build a personal knowledge base</strong> of every subject you study in Notion</li>
+              <li><strong>Track GPA goals</strong> and academic progress week by week</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">📚</span><div><div class="wif-chip-name">Student Study Planner</div><div class="wif-chip-desc">Timetable, assignment tracker, exam planner, revision notes</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🧠</span><div><div class="wif-chip-name">Second Brain — Notion Template</div><div class="wif-chip-desc">Searchable notes, reading lists, and lecture summaries</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">😊</span><div><div class="wif-chip-name">Happy Tracker Spreadsheet</div><div class="wif-chip-desc">Track stress, burnout, and wellbeing during exam periods</div></div><span class="wif-chip-badge live">Available</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📈</span><div><div class="wif-chip-name">SEO & Content AI Pack</div><div class="wif-chip-desc">Includes research, essay structure, and summarising prompts</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>Research insight:</strong> Students who use structured planners score on average <strong>20–30% higher</strong> in academic performance assessments compared to those who rely on memory alone. (Source: Cambridge Academic Planning Studies)</div>
+      </div>
+
+      <!-- ③ BETTER LIFE -->
+      <div class="wif-panel" id="panel-betterlife">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>A better life is designed, not stumbled into</h3>
+            <div class="wif-tagline">For people who want more balance, health, and intention</div>
+            <p>Most people want a better life but have no system to build one. They set New Year's resolutions and abandon them by February. They want to eat better but never plan meals. They want to travel more but never organise trips. The missing piece is almost always a simple, low-friction daily system.</p>
+            <p>Our "better life" products are designed around that insight. The <strong>Happy Tracker</strong> makes you aware of what genuinely improves your daily experience. The <strong>Health & Fitness Planner</strong> turns healthy intentions into a trackable daily practice. The <strong>Meal Planner</strong> removes the daily friction of deciding what to eat. The <strong>Travel Planner</strong> turns vague travel dreams into actual trips.</p>
+            <p>None of these are complicated. That's the point. Simple systems, used consistently, create extraordinary results over 12 months.</p>
+            <ul class="wif-points">
+              <li><strong>Track your mood and energy daily</strong> to understand what actually makes your life better</li>
+              <li><strong>Plan your meals for the week</strong> — eat healthier, waste less, save money</li>
+              <li><strong>Log workouts and fitness goals</strong> with a dedicated health planner</li>
+              <li><strong>Plan trips in advance</strong> so travel actually happens instead of just being talked about</li>
+              <li><strong>Track spending and savings goals</strong> with the Budget & Savings Planner</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">😊</span><div><div class="wif-chip-name">Happy Tracker Spreadsheet</div><div class="wif-chip-desc">The foundation of a more intentional, self-aware life</div></div><span class="wif-chip-badge live">Available</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">💪</span><div><div class="wif-chip-name">Health & Fitness Planner</div><div class="wif-chip-desc">Workout log, meal plan, water tracker, habit builder</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🥗</span><div><div class="wif-chip-name">Weekly Meal Planner</div><div class="wif-chip-desc">7-day meal plans, grocery list, recipe tracking</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">✈️</span><div><div class="wif-chip-name">Travel & Trip Planner</div><div class="wif-chip-desc">Itinerary builder, packing list, daily schedule, budget</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">💳</span><div><div class="wif-chip-name">Budget & Savings Planner</div><div class="wif-chip-desc">Monthly spending tracker, savings goals, bill reminders</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>Research insight:</strong> According to a Harvard Business Review study, people who track daily habits with a simple tool are <strong>3x more likely</strong> to maintain those habits after 90 days compared to those who rely on willpower alone.</div>
+      </div>
+
+      <!-- ④ PREDICTIVE / FUTURE PLANNING -->
+      <div class="wif-panel" id="panel-predictive">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>Plan your future before it plans you</h3>
+            <div class="wif-tagline">For strategic thinkers, planners, and anyone who thinks ahead</div>
+            <p>The most successful people — in business, in health, in finances — aren't the ones who react best. They're the ones who plan best. They look at where they are, where they want to be, and build a clear path between the two.</p>
+            <p>Our planning products are built around this mindset. The <strong>Happy Tracker</strong> helps you understand your current baseline — your energy patterns, what drains you, what fuels you. The <strong>Entrepreneur Focus Planner</strong> helps you set 90-day goals and track the exact inputs that lead to your targets. The <strong>Business Hub Notion template</strong> lets you map out your entire operation, set OKRs, and review progress systematically.</p>
+            <p>Whether you're planning your career for the next 5 years, your finances for the next 12 months, or your content calendar for the next 30 days — the right template turns vague intentions into clear, trackable action plans.</p>
+            <ul class="wif-points">
+              <li><strong>Set quarterly and annual goals</strong> with visual tracking in Notion and digital planners</li>
+              <li><strong>Track business revenue targets</strong> against actual weekly results</li>
+              <li><strong>Plan your content 30 days ahead</strong> with the Social Media Content Calendar spreadsheet</li>
+              <li><strong>Monitor financial runway</strong> with the Small Business Finance Tracker</li>
+              <li><strong>Build predictable daily routines</strong> that compound into long-term results</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">💡</span><div><div class="wif-chip-name">Entrepreneur Focus Planner</div><div class="wif-chip-desc">Deep work sessions, 90-day goals, weekly reviews</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🏢</span><div><div class="wif-chip-name">Business Hub — Notion</div><div class="wif-chip-desc">OKRs, quarterly planning, company roadmap, SOPs</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📅</span><div><div class="wif-chip-name">Social Media Content Calendar</div><div class="wif-chip-desc">30-day content plan across Instagram, LinkedIn, and more</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">😊</span><div><div class="wif-chip-name">Happy Tracker Spreadsheet</div><div class="wif-chip-desc">Understand your baseline before planning your future</div></div><span class="wif-chip-badge live">Available</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>Research insight:</strong> A study by the University of Toronto found that people who create written future plans — even simple ones — are significantly more likely to achieve specific outcomes within a 12-month period than those who keep plans in their head.</div>
+      </div>
+
+      <!-- ⑤ PROFESSIONAL -->
+      <div class="wif-panel" id="panel-professional">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>Look professional without paying professional prices</h3>
+            <div class="wif-tagline">For freelancers, consultants, small business owners, and job seekers</div>
+            <p>In the professional world, presentation is everything. A freelancer with a clean invoice template wins more repeat business than one who sends a rough PDF. A small business with a professional website converts more visitors than one without. A consultant with a polished pitch deck closes more deals than one who presents in Arial on a white background.</p>
+            <p>The challenge is that professional design has traditionally been expensive. Hiring a designer for a brand identity costs hundreds of dollars. Commissioning a developer for a website costs thousands. Product4u changes this equation completely — giving you agency-quality tools at prices that make sense for independent professionals.</p>
+            <p>Every professional template in our store is designed to make you look established, credible, and trustworthy — regardless of how early you are in your career.</p>
+            <ul class="wif-points">
+              <li><strong>Win more clients</strong> with professional proposals and invoices that look polished</li>
+              <li><strong>Build credibility instantly</strong> with a website template that looks custom-built</li>
+              <li><strong>Manage your work efficiently</strong> with the Freelancer OS Notion template</li>
+              <li><strong>Present better</strong> with a 30-slide professional pitch deck in Canva</li>
+              <li><strong>Look established</strong> with a full brand identity kit — logo, card, letterhead, socials</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">📋</span><div><div class="wif-chip-name">Freelancer OS — Notion</div><div class="wif-chip-desc">Client CRM, project tracker, invoice log, time tracker</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📄</span><div><div class="wif-chip-name">Freelancer Docs Bundle</div><div class="wif-chip-desc">Invoice, proposal, and contract templates in Word & PDF</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">✨</span><div><div class="wif-chip-name">Brand Identity Kit — Canva</div><div class="wif-chip-desc">Logo, business card, letterhead, email signature, socials</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🛍️</span><div><div class="wif-chip-name">Online Store Website Template</div><div class="wif-chip-desc">Professional storefront — deploy free on GitHub Pages</div></div><span class="wif-chip-badge live">Available</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📊</span><div><div class="wif-chip-name">Business Pitch Deck — Canva</div><div class="wif-chip-desc">30-slide professional deck with charts and infographics</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>Research insight:</strong> According to Adobe, <strong>59% of people</strong> say they won't recommend a business with a poorly designed website or materials. First impressions are formed in under 50 milliseconds — and design drives them entirely.</div>
+      </div>
+
+      <!-- ⑥ PASSIVE INCOME -->
+      <div class="wif-panel" id="panel-passive">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>Sell our products as your own — on any platform</h3>
+            <div class="wif-tagline">For sellers on Etsy, Gumroad, Shopify, Amazon KDP, Payhip & more</div>
+            <p>Digital products are the most powerful passive income vehicle available today. Once created or licensed, a digital product can be sold thousands of times with zero additional cost. No inventory. No shipping. No manufacturing. Pure margin.</p>
+            <p>Etsy alone processes millions of digital product sales every month — printable wall art, digital planners, wedding templates, and spreadsheets are among the highest-converting categories. Gumroad and Payhip are used by solo creators worldwide to generate $1,000–$20,000/month from digital downloads. Amazon KDP allows you to sell printable planners and workbooks as print-on-demand paperbacks at zero upfront cost.</p>
+            <p>Our products are designed with resellers in mind. They cover the exact categories that sell best on these platforms. The personal + commercial licence included with every purchase allows you to use them as the foundation for your own digital product business.</p>
+            <ul class="wif-points">
+              <li><strong>Etsy top sellers:</strong> Printable wall art, digital planners, wedding invitations, spreadsheet trackers — all in our store</li>
+              <li><strong>Gumroad / Payhip:</strong> Notion templates, AI prompt packs, Canva kits, and online courses convert exceptionally well</li>
+              <li><strong>Shopify:</strong> Use our website template as a Shopify-alternative storefront, or sell our digital kits as products</li>
+              <li><strong>Amazon KDP:</strong> Our planner templates can be adapted into printable KDP interiors for passive book income</li>
+              <li><strong>TikTok Shop / Instagram:</strong> Canva templates and AI prompt packs are top-performing digital product categories right now</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">🖼️</span><div><div class="wif-chip-name">Printable Wall Art Sets</div><div class="wif-chip-desc">Top-selling Etsy category — sell instantly as downloads</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">💍</span><div><div class="wif-chip-name">Wedding Invitation Suites</div><div class="wif-chip-desc">#1 digital product category on Etsy by volume</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📓</span><div><div class="wif-chip-name">Notion Template Pack</div><div class="wif-chip-desc">High-converting Gumroad and Payhip sellers</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🤖</span><div><div class="wif-chip-name">AI Prompt Packs</div><div class="wif-chip-desc">Trending on TikTok Shop — massive demand, low competition</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">😊</span><div><div class="wif-chip-name">Happy Tracker Spreadsheet</div><div class="wif-chip-desc">Wellness tracker — strong Etsy and Gumroad seller</div></div><span class="wif-chip-badge live">Available</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>Market insight:</strong> The global digital products market was valued at <strong>$331 billion in 2022</strong> and is projected to reach over <strong>$700 billion by 2030</strong>. Etsy's digital downloads category grew 43% year-over-year. The opportunity has never been larger.</div>
+      </div>
+
+      <!-- ⑦ MINIMAL COST SERVICES -->
+      <div class="wif-panel" id="panel-minimal">
+        <div class="wif-grid">
+          <div class="wif-left">
+            <h3>Get professional-grade services at a fraction of the cost</h3>
+            <div class="wif-tagline">For budget-conscious buyers who still want quality</div>
+            <p>The biggest myth in business is that quality costs a lot. It doesn't — when you know where to look. Agencies and freelancers charge premium prices not just for their skill, but for their overheads, their sales process, and their time. With ready-made digital products, you get the output without paying for any of that.</p>
+            <p>Consider what's available here: a complete website for your business costs less than a dinner for two. A full brand identity costs less than a single hour with a designer. An Instagram content strategy costs less than a coffee subscription. A complete Notion workspace to manage your entire business costs less than a paperback book.</p>
+            <p>This is the real value proposition of Product4u: <strong>the same professional result, at a price that makes sense</strong> — whether you're a bootstrapping entrepreneur, a first-time freelancer, a student on a tight budget, or simply someone who values money.</p>
+            <ul class="wif-points">
+              <li><strong>Full business website</strong> for $22–$34 instead of $500–$5,000</li>
+              <li><strong>Complete brand identity</strong> for $6 instead of $300–$1,500</li>
+              <li><strong>Month of social media content</strong> for $3.50 instead of $500–$2,000</li>
+              <li><strong>Full business management system</strong> in Notion for $6 instead of $200+</li>
+              <li><strong>Online course on a marketable skill</strong> for $14–$18 instead of $97–$500</li>
+            </ul>
+          </div>
+          <div class="wif-right">
+            <div class="wif-product-chip"><span class="wif-chip-icon">🛍️</span><div><div class="wif-chip-name">Online Store Website — $34</div><div class="wif-chip-desc">vs. $500–$5,000 hiring a developer</div></div><span class="wif-chip-badge live">Available</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">✨</span><div><div class="wif-chip-name">Brand Identity Kit — ~$6</div><div class="wif-chip-desc">vs. $300–$1,500 hiring a brand designer</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">📱</span><div><div class="wif-chip-name">Social Media AI Pack — $3.50</div><div class="wif-chip-desc">vs. $500–$2,000/month for a content agency</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">🎓</span><div><div class="wif-chip-name">Freelancing Course — $18</div><div class="wif-chip-desc">vs. $97–$500 on Udemy or Skillshare</div></div><span class="wif-chip-badge soon">Coming Soon</span></div>
+            <div class="wif-product-chip"><span class="wif-chip-icon">😊</span><div><div class="wif-chip-name">Happy Tracker — $8</div><div class="wif-chip-desc">vs. $15–$30/month wellness apps</div></div><span class="wif-chip-badge live">Available</span></div>
+          </div>
+        </div>
+        <div class="wif-bottom-note">💡 <strong>The bottom line:</strong> You don't have to choose between <strong>quality and affordability</strong>. Every product at Product4u is designed to deliver professional results at a price that removes the excuse of "I can't afford it" from the equation permanently.</div>
+      </div>
+
+    </div><!-- end wif-panels -->
+  </div><!-- end wif-inner -->
+</div><!-- end wif-section -->
+
+<div class="mobile-cats" id="mobile-cats">
+  <button class="mob-btn active" data-target="all">All</button>
+  <button class="mob-btn" data-target="website">🌐 Website</button>
+  <button class="mob-btn" data-target="notion">📓 Notion</button>
+  <button class="mob-btn" data-target="ai">🤖 AI Prompts</button>
+  <button class="mob-btn" data-target="spreadsheet">📊 Spreadsheets</button>
+  <button class="mob-btn" data-target="canva">🎨 Canva</button>
+  <button class="mob-btn" data-target="planner">📅 Planners</button>
+  <button class="mob-btn" data-target="business">💼 Business</button>
+  <button class="mob-btn" data-target="wallart">🖼️ Wall Art</button>
+  <button class="mob-btn" data-target="wedding">💍 Wedding</button>
+  <button class="mob-btn" data-target="gplanner">📆 Generic Planners</button>
+  <button class="mob-btn" data-target="courses">🎓 Courses</button>
+  <button class="mob-btn" data-target="tools">🛠️ Tools</button>
+</div>
+
+<div class="shop-layout">
+
+  <aside class="cat-sidebar">
+    <div class="sidebar-label">Browse by category</div>
+    <ul class="cat-nav" id="cat-nav">
+      <li><a href="#cat-website" data-target="website"><span class="ci">🌐</span>Website Templates<span class="cc">5</span></a></li>
+      <li><a href="#cat-notion" data-target="notion"><span class="ci">📓</span>Notion Templates<span class="cc">4</span></a></li>
+      <li><a href="#cat-ai" data-target="ai"><span class="ci">🤖</span>AI Prompt Packs<span class="cc">4</span></a></li>
+      <li><a href="#cat-spreadsheet" data-target="spreadsheet"><span class="ci">📊</span>Niche Spreadsheets<span class="cc">4</span></a></li>
+      <li><a href="#cat-canva" data-target="canva"><span class="ci">🎨</span>Canva Templates<span class="cc">4</span></a></li>
+      <li><a href="#cat-planner" data-target="planner"><span class="ci">📅</span>Digital Planners<span class="cc">4</span></a></li>
+      <li><a href="#cat-business" data-target="business"><span class="ci">💼</span>Business Templates<span class="cc">4</span></a></li>
+      <li><a href="#cat-wallart" data-target="wallart"><span class="ci">🖼️</span>Printable Wall Art<span class="cc">4</span></a></li>
+      <li><a href="#cat-wedding" data-target="wedding"><span class="ci">💍</span>Wedding Invitations<span class="cc">4</span></a></li>
+      <li><a href="#cat-gplanner" data-target="gplanner"><span class="ci">📆</span>Generic Planners<span class="cc">4</span></a></li>
+      <li><a href="#cat-courses" data-target="courses"><span class="ci">🎓</span>Online Courses<span class="cc">3</span></a></li>
+      <li><a href="#cat-tools" data-target="tools"><span class="ci">🛠️</span>Tools & Resources<span class="cc">4</span></a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <div id="no-results" class="no-results"><h3>No products found</h3><p>Try a different search term.</p></div>
+
+    <!-- COMING SOON BANNER -->
+    <div class="cs-banner">
+      <span class="cs-banner-dot"></span>
+      <span>We're actively building new products. <strong style="color:var(--text)">Coming Soon</strong> items will be available shortly — click <strong style="color:var(--accent)">Notify Me</strong> on any card to get an email when it launches.</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 1. WEBSITE TEMPLATES -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-website" data-section="website">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">🌐</span><div class="csh-text"><div class="csh-title">Website Templates</div><div class="csh-desc">Fully coded, GitHub-ready HTML sites</div></div></div>
+        <span class="csh-count">5 products</span>
+      </div>
+      <div class="products-grid">
+
+        <!-- AVAILABLE: Online Store -->
+        <div class="product-card" data-name="online store ecommerce website template product gallery whatsapp boutique">
+          <div class="product-thumb"><span class="ti">🛍️</span><span class="tl">Online Store</span></div>
+          <div class="pb2"><div class="pc">Website Template</div><div class="pn">Online Store</div><div class="pt"><span class="tag">Product grid</span><span class="tag">WhatsApp order</span><span class="tag">Categories</span></div><p class="pd">Clean storefront with product gallery, category filter, and WhatsApp order flow. No payment gateway needed.</p><div class="pf"><div><span class="pp">$34</span></div><a href="mailto:your@email.com?subject=I want Online Store Website Template" class="pcta">Buy →</a></div></div>
+        </div>
+
+        <!-- COMING SOON -->
+        <div class="product-card coming-soon" data-name="restaurant pro website template menu reservations">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🍽️</span><span class="tl">Restaurant</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Website Template</div><div class="pn">Restaurant Pro</div><div class="pt"><span class="tag">Menu</span><span class="tag">Reservations</span><span class="tag">WhatsApp CTA</span></div><p class="pd">Full restaurant site with animated menu, table enquiry form, and stunning food gallery.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$30</span></div><a href="mailto:your@email.com?subject=Notify me when Restaurant Pro is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+        <div class="product-card coming-soon" data-name="salon spa elite website template booking services">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">💆</span><span class="tl">Salon & Spa</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Website Template</div><div class="pn">Salon & Spa Elite</div><div class="pt"><span class="tag">Booking</span><span class="tag">Services</span><span class="tag">Team</span></div><p class="pd">Elegant salon website with services pricing, team profiles, and Instagram gallery.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$24</span></div><a href="mailto:your@email.com?subject=Notify me when Salon Spa Elite is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+        <div class="product-card coming-soon" data-name="gym fitness pro website template schedule membership trainer">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🏋️</span><span class="tl">Gym & Fitness</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Website Template</div><div class="pn">Gym & Fitness Pro</div><div class="pt"><span class="tag">Schedule</span><span class="tag">Memberships</span><span class="tag">Trainers</span></div><p class="pd">Bold dark template for gyms with class timetables, membership plans, and trainer bios.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$26</span></div><a href="mailto:your@email.com?subject=Notify me when Gym Fitness Pro is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+        <div class="product-card coming-soon" data-name="coaching consulting website template lead testimonials">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🎯</span><span class="tl">Coaching</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Website Template</div><div class="pn">Coaching & Consulting</div><div class="pt"><span class="tag">Lead capture</span><span class="tag">Testimonials</span></div><p class="pd">Authority-building site for coaches with testimonials slider and calendar booking link.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$22</span></div><a href="mailto:your@email.com?subject=Notify me when Coaching Template is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 2. NOTION TEMPLATES -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-notion" data-section="notion">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">📓</span><div class="csh-text"><div class="csh-title">Notion Templates</div><div class="csh-desc">Ready-to-use Notion workspaces & dashboards</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="notion freelancer client crm project management dashboard">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📋</span><span class="tl">Freelancer OS</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Notion Template</div><div class="pn">Freelancer OS</div><div class="pt"><span class="tag">Client CRM</span><span class="tag">Projects</span><span class="tag">Invoices</span></div><p class="pd">Complete freelancer operating system — manage clients, projects, invoices, and deadlines in one place.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$12</span></div><a href="mailto:your@email.com?subject=Notify me when Freelancer OS is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="notion second brain personal knowledge management pkm life os">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🧠</span><span class="tl">Second Brain</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Notion Template</div><div class="pn">Second Brain System</div><div class="pt"><span class="tag">Notes</span><span class="tag">Knowledge base</span><span class="tag">Goals</span></div><p class="pd">Build your personal knowledge system with linked notes, habit tracker, and goal boards.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$10</span></div><a href="mailto:your@email.com?subject=Notify me when Second Brain Notion is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="notion content creator youtube instagram planner social media">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🎬</span><span class="tl">Creator Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Notion Template</div><div class="pn">Content Creator Planner</div><div class="pt"><span class="tag">Video pipeline</span><span class="tag">Ideas bank</span><span class="tag">Analytics</span></div><p class="pd">Plan YouTube videos, Instagram posts, and newsletters from a single Notion dashboard.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$8</span></div><a href="mailto:your@email.com?subject=Notify me when Content Creator Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="notion business startup company wiki team hub operations">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🏢</span><span class="tl">Business Hub</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Notion Template</div><div class="pn">Business Hub</div><div class="pt"><span class="tag">Team wiki</span><span class="tag">SOPs</span><span class="tag">HR</span></div><p class="pd">All-in-one company wiki for small businesses — SOPs, team directory, meeting notes, OKRs.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$14</span></div><a href="mailto:your@email.com?subject=Notify me when Business Hub Notion is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 3. AI PROMPT PACKS -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-ai" data-section="ai">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">🤖</span><div class="csh-text"><div class="csh-title">AI Prompt Packs</div><div class="csh-desc">Curated ChatGPT & Claude prompts for every need</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="ai prompt pack chatgpt business marketing copywriting sales">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">✍️</span><span class="tl">Copywriting Pack</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">AI Prompt Pack</div><div class="pn">Business Copywriting Pack</div><div class="pt"><span class="tag">200+ prompts</span><span class="tag">Emails</span><span class="tag">Ads</span></div><p class="pd">200+ ready prompts for emails, ad copy, Instagram captions, product descriptions, and sales pages.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Copywriting AI Pack is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="ai prompt pack chatgpt seo content blog articles google">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📈</span><span class="tl">SEO Pack</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">AI Prompt Pack</div><div class="pn">SEO & Content Pack</div><div class="pt"><span class="tag">Blog outlines</span><span class="tag">Meta tags</span><span class="tag">Keywords</span></div><p class="pd">100 prompts to research keywords, write blog posts, create meta descriptions, and plan content strategy.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when SEO AI Pack is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="ai prompt pack chatgpt ecommerce product descriptions amazon shopify">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🛒</span><span class="tl">eCommerce Pack</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">AI Prompt Pack</div><div class="pn">eCommerce Seller Pack</div><div class="pt"><span class="tag">Product descriptions</span><span class="tag">Reviews</span></div><p class="pd">Prompts to write product listings, customer review responses, Amazon/Shopify descriptions.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$5</span></div><a href="mailto:your@email.com?subject=Notify me when eCommerce AI Pack is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="ai prompt pack chatgpt social media instagram twitter linkedin reels">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📱</span><span class="tl">Social Pack</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">AI Prompt Pack</div><div class="pn">Social Media Mega Pack</div><div class="pt"><span class="tag">Instagram</span><span class="tag">LinkedIn</span><span class="tag">Reels scripts</span></div><p class="pd">150 prompts for Instagram captions, LinkedIn posts, Reel scripts, and Twitter threads.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Social Media AI Pack is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 4. NICHE SPREADSHEETS -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-spreadsheet" data-section="spreadsheet">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">📊</span><div class="csh-text"><div class="csh-title">Niche Spreadsheets</div><div class="csh-desc">Excel & Google Sheets trackers for every business</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+
+        <!-- AVAILABLE: Happy Tracker -->
+        <div class="product-card" data-name="happy tracker spreadsheet happiness mood wellbeing daily tracker excel google sheets">
+          <div class="product-thumb"><span class="ti">😊</span><span class="tl">Happy Tracker</span></div>
+          <div class="pb2"><div class="pc">Spreadsheet</div><div class="pn">Happy Tracker</div><div class="pt"><span class="tag">Mood log</span><span class="tag">Daily check-in</span><span class="tag">Wellbeing</span></div><p class="pd">Track your daily happiness, mood, and wellbeing in one simple spreadsheet. Spot patterns and improve your life.</p><div class="pf"><div><span class="pp">$8</span></div><a href="mailto:your@email.com?subject=I want Happy Tracker Spreadsheet" class="pcta">Buy →</a></div></div>
+        </div>
+
+        <!-- COMING SOON -->
+        <div class="product-card coming-soon" data-name="spreadsheet excel google sheets inventory stock management shop">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📦</span><span class="tl">Inventory</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Spreadsheet</div><div class="pn">Inventory Manager</div><div class="pt"><span class="tag">Stock levels</span><span class="tag">Reorder alerts</span><span class="tag">Suppliers</span></div><p class="pd">Manage product stock, set reorder alerts, and track supplier details in one clean sheet.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Inventory Manager is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+        <div class="product-card coming-soon" data-name="spreadsheet excel google sheets social media content planner calendar instagram">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📅</span><span class="tl">Content Calendar</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Spreadsheet</div><div class="pn">Social Media Content Calendar</div><div class="pt"><span class="tag">30-day plan</span><span class="tag">Platform tabs</span><span class="tag">Metrics</span></div><p class="pd">Plan 30 days of social content across Instagram, Facebook, and LinkedIn with built-in metrics tracking.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when Content Calendar Spreadsheet is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+        <div class="product-card coming-soon" data-name="spreadsheet excel google sheets freelancer client invoice project hours billing">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🧾</span><span class="tl">Freelancer Billing</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Spreadsheet</div><div class="pn">Freelancer Billing Tracker</div><div class="pt"><span class="tag">Hours logged</span><span class="tag">Invoices</span><span class="tag">Clients</span></div><p class="pd">Log hours, auto-calculate billing, and track invoice status across multiple clients and projects.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Freelancer Billing Tracker is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 5. CANVA TEMPLATES -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-canva" data-section="canva">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">🎨</span><div class="csh-text"><div class="csh-title">Canva Templates</div><div class="csh-desc">Editable Canva designs for social media & branding</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="canva instagram reels post story feed template social media">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📸</span><span class="tl">Instagram Kit</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Canva Template</div><div class="pn">Instagram Brand Kit</div><div class="pt"><span class="tag">50 posts</span><span class="tag">30 stories</span><span class="tag">15 reels covers</span></div><p class="pd">50 Instagram post templates, 30 story designs, and 15 Reel cover templates. Fully editable in Canva.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$10</span></div><a href="mailto:your@email.com?subject=Notify me when Instagram Brand Kit is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="canva logo brand identity kit template business card letterhead">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">✨</span><span class="tl">Brand Identity</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Canva Template</div><div class="pn">Brand Identity Kit</div><div class="pt"><span class="tag">Logo variants</span><span class="tag">Business card</span><span class="tag">Letterhead</span></div><p class="pd">Complete brand identity pack — logo, business card, letterhead, email signature, and social banners.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$12</span></div><a href="mailto:your@email.com?subject=Notify me when Brand Identity Kit is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="canva presentation pitch deck slides template business">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📊</span><span class="tl">Pitch Deck</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Canva Template</div><div class="pn">Business Pitch Deck</div><div class="pt"><span class="tag">30 slides</span><span class="tag">Infographics</span><span class="tag">Charts</span></div><p class="pd">Professional 30-slide pitch deck template for startups and businesses. Includes data charts and infographics.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$8</span></div><a href="mailto:your@email.com?subject=Notify me when Business Pitch Deck is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="canva media press kit template influencer brand portfolio">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🌟</span><span class="tl">Media Kit</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Canva Template</div><div class="pn">Influencer Media Kit</div><div class="pt"><span class="tag">8 pages</span><span class="tag">Stats section</span><span class="tag">Rates page</span></div><p class="pd">Professional media kit for influencers and creators — audience stats, content showcase, and rates page.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Influencer Media Kit is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 6. DIGITAL PLANNERS -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-planner" data-section="planner">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">📅</span><div class="csh-text"><div class="csh-title">Digital Planners</div><div class="csh-desc">GoodNotes & Notability planners for iPad</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="digital planner goodnotes ipad daily weekly monthly productivity 2025">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🗓️</span><span class="tl">Ultimate Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Digital Planner</div><div class="pn">Ultimate Life Planner 2025</div><div class="pt"><span class="tag">Daily</span><span class="tag">Weekly</span><span class="tag">Monthly</span></div><p class="pd">Full 2025 digital planner for GoodNotes/Notability — daily, weekly, monthly views plus goal tracker.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$10</span></div><a href="mailto:your@email.com?subject=Notify me when Ultimate Life Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="digital planner goodnotes student study notes university college">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📚</span><span class="tl">Student Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Digital Planner</div><div class="pn">Student Study Planner</div><div class="pt"><span class="tag">Timetable</span><span class="tag">Assignments</span><span class="tag">Exams</span></div><p class="pd">Class timetable, assignment tracker, exam planner, and revision notes for students.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Student Study Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="digital planner goodnotes business entrepreneur work productivity focus">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">💡</span><span class="tl">Business Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Digital Planner</div><div class="pn">Entrepreneur Focus Planner</div><div class="pt"><span class="tag">Deep work</span><span class="tag">Revenue goals</span><span class="tag">Weekly review</span></div><p class="pd">Deep work sessions, revenue goal tracking, weekly reviews, and quarterly planning for entrepreneurs.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$11</span></div><a href="mailto:your@email.com?subject=Notify me when Entrepreneur Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="digital planner goodnotes fitness health workout meal plan diet">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">💪</span><span class="tl">Fitness Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Digital Planner</div><div class="pn">Health & Fitness Planner</div><div class="pt"><span class="tag">Workout log</span><span class="tag">Meal plan</span><span class="tag">Habit tracker</span></div><p class="pd">Track workouts, meal plans, water intake, and fitness goals in one beautiful iPad planner.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$8</span></div><a href="mailto:your@email.com?subject=Notify me when Fitness Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 7. BUSINESS TEMPLATES -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-business" data-section="business">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">💼</span><div class="csh-text"><div class="csh-title">Professional & Business Templates</div><div class="csh-desc">Word, PDF, and editable business documents</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="business template invoice proposal contract freelancer word pdf professional">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📄</span><span class="tl">Invoice & Proposal</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Business Template</div><div class="pn">Freelancer Docs Bundle</div><div class="pt"><span class="tag">Invoice</span><span class="tag">Proposal</span><span class="tag">Contract</span></div><p class="pd">Professional invoice, project proposal, and service contract templates in Word and PDF format.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$10</span></div><a href="mailto:your@email.com?subject=Notify me when Freelancer Docs Bundle is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="business template hr employee handbook policies word pdf company">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">👥</span><span class="tl">HR Templates</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Business Template</div><div class="pn">HR & Employee Pack</div><div class="pt"><span class="tag">Offer letter</span><span class="tag">Policies</span><span class="tag">NDA</span></div><p class="pd">Offer letter, employment agreement, leave policy, NDA, and employee handbook template kit.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$12</span></div><a href="mailto:your@email.com?subject=Notify me when HR Employee Pack is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="business template marketing plan strategy brand document word professional">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🗺️</span><span class="tl">Marketing Plan</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Business Template</div><div class="pn">12-Month Marketing Plan</div><div class="pt"><span class="tag">Strategy doc</span><span class="tag">Budget sheet</span><span class="tag">KPIs</span></div><p class="pd">Complete 12-month marketing strategy document with budget planner, campaign calendar, and KPI tracker.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$11</span></div><a href="mailto:your@email.com?subject=Notify me when Marketing Plan Template is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="business template report annual meeting minutes word professional corporate">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📑</span><span class="tl">Reports Pack</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Business Template</div><div class="pn">Business Reports Pack</div><div class="pt"><span class="tag">Annual report</span><span class="tag">Meeting minutes</span><span class="tag">MoU</span></div><p class="pd">Annual report, meeting minutes, MoU, and executive summary templates — branded and print-ready.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$8</span></div><a href="mailto:your@email.com?subject=Notify me when Business Reports Pack is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 8. PRINTABLE WALL ART -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-wallart" data-section="wallart">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">🖼️</span><div class="csh-text"><div class="csh-title">Printable Wall Art</div><div class="csh-desc">Print-ready digital art for home & office</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="printable wall art motivational quotes poster home office decor digital print">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🌿</span><span class="tl">Motivational</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Printable Wall Art</div><div class="pn">Motivational Quotes Pack</div><div class="pt"><span class="tag">10 posters</span><span class="tag">A4 + A3</span><span class="tag">300 DPI</span></div><p class="pd">10 minimalist motivational quote posters. Print at home or at a local shop. A4 and A3 sizes.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$5</span></div><a href="mailto:your@email.com?subject=Notify me when Motivational Quotes Wall Art is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="printable wall art botanical plant leaf nature minimalist poster digital print">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🌸</span><span class="tl">Botanical</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Printable Wall Art</div><div class="pn">Botanical Art Set</div><div class="pt"><span class="tag">6 prints</span><span class="tag">Watercolour style</span><span class="tag">Frameable</span></div><p class="pd">6 watercolour-style botanical prints perfect for living rooms, bedrooms, and cafés.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when Botanical Art Set is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="printable wall art kids nursery baby room children cute animal cartoon">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🦒</span><span class="tl">Kids & Nursery</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Printable Wall Art</div><div class="pn">Kids Nursery Art Set</div><div class="pt"><span class="tag">8 prints</span><span class="tag">Cute animals</span><span class="tag">Pastel colors</span></div><p class="pd">8 adorable animal prints for nurseries and kids' rooms. Soft pastel colours and cute style.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$5</span></div><a href="mailto:your@email.com?subject=Notify me when Kids Nursery Art Set is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="printable wall art abstract geometric modern minimal art line art poster">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🔷</span><span class="tl">Abstract Modern</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Printable Wall Art</div><div class="pn">Abstract Modern Art Set</div><div class="pt"><span class="tag">5 prints</span><span class="tag">Line art</span><span class="tag">Neutral palette</span></div><p class="pd">5 modern abstract line art prints in neutral tones — perfect for offices and modern interiors.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when Abstract Modern Art Set is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 9. WEDDING INVITATIONS -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-wedding" data-section="wedding">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">💍</span><div class="csh-text"><div class="csh-title">Generic Wedding Invitations</div><div class="csh-desc">Editable wedding stationery in Canva & Word</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="wedding invitation card template canva editable elegant floral print">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">💐</span><span class="tl">Floral Elegance</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Wedding Invitation</div><div class="pn">Floral Elegance Suite</div><div class="pt"><span class="tag">Invite</span><span class="tag">RSVP</span><span class="tag">Menu card</span></div><p class="pd">Floral wedding suite with invitation, RSVP card, menu, and thank-you card. Editable in Canva.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$10</span></div><a href="mailto:your@email.com?subject=Notify me when Floral Elegance Wedding Suite is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="wedding invitation card template canva editable minimalist modern simple">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🤍</span><span class="tl">Minimalist</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Wedding Invitation</div><div class="pn">Modern Minimalist Suite</div><div class="pt"><span class="tag">Clean design</span><span class="tag">5 cards</span><span class="tag">Print-ready</span></div><p class="pd">Clean, modern wedding suite for couples who love minimal design. All cards print-ready at 300 DPI.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$8</span></div><a href="mailto:your@email.com?subject=Notify me when Modern Minimalist Wedding Suite is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="wedding invitation card template canva editable royal gold luxury premium">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">👑</span><span class="tl">Royal Gold</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Wedding Invitation</div><div class="pn">Royal Gold Suite</div><div class="pt"><span class="tag">Gold foil look</span><span class="tag">Luxury style</span><span class="tag">6 cards</span></div><p class="pd">Luxurious gold-accented wedding suite with ornate borders and premium print-ready layouts.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$11</span></div><a href="mailto:your@email.com?subject=Notify me when Royal Gold Wedding Suite is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="wedding invitation card template canva editable rustic bohemian natural earthy">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🌾</span><span class="tl">Rustic Boho</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Wedding Invitation</div><div class="pn">Rustic Boho Suite</div><div class="pt"><span class="tag">Earthy tones</span><span class="tag">Botanical</span><span class="tag">5 cards</span></div><p class="pd">Rustic bohemian wedding stationery with dried flower illustrations and warm earthy colours.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$9</span></div><a href="mailto:your@email.com?subject=Notify me when Rustic Boho Wedding Suite is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 10. GENERIC DIGITAL PLANNERS -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-gplanner" data-section="gplanner">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">📆</span><div class="csh-text"><div class="csh-title">Generic Digital Planners</div><div class="csh-desc">Undated & evergreen planners for any year</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="generic digital planner undated goodnotes notability daily weekly monthly pdf">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🗒️</span><span class="tl">Undated Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Generic Digital Planner</div><div class="pn">Classic Undated Planner</div><div class="pt"><span class="tag">Undated</span><span class="tag">Daily + Weekly</span><span class="tag">GoodNotes</span></div><p class="pd">Evergreen undated planner — start any day of the year. Daily, weekly, monthly, and notes pages.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Classic Undated Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="generic digital planner budget finance money savings tracker pdf excel">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">💳</span><span class="tl">Budget Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Generic Digital Planner</div><div class="pn">Budget & Savings Planner</div><div class="pt"><span class="tag">Monthly budget</span><span class="tag">Savings goals</span><span class="tag">Bill tracker</span></div><p class="pd">Track monthly spending, savings goals, and bills. Works on any device.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when Budget Savings Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="generic digital planner meal prep food recipe weekly dinner plan health">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🥗</span><span class="tl">Meal Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Generic Digital Planner</div><div class="pn">Weekly Meal Planner</div><div class="pt"><span class="tag">7-day meals</span><span class="tag">Grocery list</span><span class="tag">Recipes</span></div><p class="pd">Plan weekly meals, build grocery lists, and track recipes. PDF and digital versions included.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$5</span></div><a href="mailto:your@email.com?subject=Notify me when Weekly Meal Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="generic digital planner travel trip vacation itinerary packing list holiday">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">✈️</span><span class="tl">Travel Planner</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Generic Digital Planner</div><div class="pn">Travel & Trip Planner</div><div class="pt"><span class="tag">Itinerary</span><span class="tag">Packing list</span><span class="tag">Budget</span></div><p class="pd">Plan trips from start to finish — itinerary builder, packing checklist, daily schedule, and travel budget.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when Travel Trip Planner is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- 11. ONLINE COURSES -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section class="cat-section" id="cat-courses" data-section="courses">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">🎓</span><div class="csh-text"><div class="csh-title">Online Courses</div><div class="csh-desc">Step-by-step PDF courses delivered instantly</div></div></div>
+        <span class="csh-count">3 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="online course freelancing how to start freelancer earn money online india">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">💻</span><span class="tl">Freelancing Course</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Online Course</div><div class="pn">Freelancing from Zero</div><div class="pt"><span class="tag">8 modules</span><span class="tag">PDF guide</span><span class="tag">Lifetime access</span></div><p class="pd">Complete guide to starting and growing a freelance career — finding clients, pricing, and scaling.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$18</span></div><a href="mailto:your@email.com?subject=Notify me when Freelancing from Zero Course is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="online course canva design graphic designer beginner learn digital design">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🖌️</span><span class="tl">Canva Design Course</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Online Course</div><div class="pn">Canva Design Masterclass</div><div class="pt"><span class="tag">6 modules</span><span class="tag">Beginner-friendly</span><span class="tag">30 exercises</span></div><p class="pd">Learn Canva from scratch — logo design, social media graphics, presentations, and client work.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$12</span></div><a href="mailto:your@email.com?subject=Notify me when Canva Design Masterclass is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        
+        <div class="product-card coming-soon" data-name="online course instagram social media marketing grow followers brand business india">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📣</span><span class="tl">Social Media Course</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Online Course</div><div class="pn">Instagram Growth Blueprint</div><div class="pt"><span class="tag">5 modules</span><span class="tag">Templates included</span><span class="tag">Strategy guide</span></div><p class="pd">Proven Instagram growth strategy for small businesses — content planning, reels, hashtags, and conversions.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$14</span></div><a href="mailto:your@email.com?subject=Notify me when Instagram Growth Blueprint is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. TOOLS & RESOURCES -->
+    <section class="cat-section" id="cat-tools" data-section="tools">
+      <div class="cat-section-header">
+        <div class="csh-left"><span class="csh-emoji">🛠️</span><div class="csh-text"><div class="csh-title">Tools & Resources</div><div class="csh-desc">Checklists, swipe files, and practical business tools</div></div></div>
+        <span class="csh-count">4 products</span>
+      </div>
+      <div class="products-grid">
+        <div class="product-card coming-soon" data-name="tools social media content kit 30 day captions hashtags instagram">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📋</span><span class="tl">Content Kit</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Tools & Resources</div><div class="pn">Social Media Content Kit</div><div class="pt"><span class="tag">30-day calendar</span><span class="tag">Caption templates</span><span class="tag">Hashtag sets</span></div><p class="pd">30-day social media content plan with ready-to-use captions, hashtag sets, and platform tips.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when Social Media Content Kit is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="tools website seo audit checklist google ranking performance">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🔍</span><span class="tl">SEO Checklist</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Tools & Resources</div><div class="pn">Website SEO Audit Checklist</div><div class="pt"><span class="tag">100 checks</span><span class="tag">PDF + Sheet</span><span class="tag">Step-by-step</span></div><p class="pd">100-point SEO checklist to find quick wins and rank higher on Google.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$7</span></div><a href="mailto:your@email.com?subject=Notify me when SEO Audit Checklist is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="tools email marketing swipe file kit newsletter sequence templates">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">📧</span><span class="tl">Email Swipe Kit</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Tools & Resources</div><div class="pn">Email Marketing Swipe Kit</div><div class="pt"><span class="tag">50 templates</span><span class="tag">Subject lines</span><span class="tag">Sequences</span></div><p class="pd">50 done-for-you email templates for welcome sequences, promotions, and newsletters.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$10</span></div><a href="mailto:your@email.com?subject=Notify me when Email Swipe Kit is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+        <div class="product-card coming-soon" data-name="tools business launch checklist startup new business guide india">
+          <div class="pb coming">Coming Soon</div>
+          <div class="product-thumb"><span class="ti">🚀</span><span class="tl">Launch Checklist</span><div class="cs-overlay"><span class="cs-label">Coming Soon</span></div></div>
+          <div class="pb2"><div class="pc">Tools & Resources</div><div class="pn">Business Launch Checklist</div><div class="pt"><span class="tag">120 steps</span><span class="tag">Legal</span><span class="tag">Marketing</span></div><p class="pd">120-step checklist covering legal setup, branding, website, social media, and first customers.</p><div class="pf"><div><span class="pp" style="color:var(--muted)">$6</span></div><a href="mailto:your@email.com?subject=Notify me when Business Launch Checklist is ready" class="pcta-notify">Notify Me</a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUNDLE -->
+    <div class="bundle-wrap" id="bundle-section">
+      <div>
+        <div style="font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem">Ultimate deal</div>
+        <h3>Everything Bundle</h3>
+        <p>Pre-order the complete bundle — get every product from all 12 categories as they launch, at one locked-in price.</p>
+        <div class="bchips">
+          <span class="bchip">🌐 Website Templates</span><span class="bchip">📓 Notion Templates</span><span class="bchip">🤖 AI Prompt Packs</span><span class="bchip">📊 Spreadsheets</span><span class="bchip">🎨 Canva Templates</span><span class="bchip">📅 Digital Planners</span><span class="bchip">💼 Business Templates</span><span class="bchip">🖼️ Wall Art</span><span class="bchip">💍 Wedding Invites</span><span class="bchip">🎓 Online Courses</span><span class="bchip">🛠️ Tools & Resources</span>
+        </div>
+        <a href="mailto:your@email.com?subject=I want to Pre-order the Everything Bundle" class="btn-primary">Pre-order the Bundle →</a>
+      </div>
+      <div class="bprice-col">
+        <span class="bprice">$99</span>
+        <span class="bwas">$340+ value</span>
+        <span class="bsave">Save 64%</span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-logo">Product<span>4u</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <p>© 2025 Product4u · Digital products delivered worldwide</p>
+</footer>
+
+<script>
+const searchInput = document.getElementById('search');
+const allCards = document.querySelectorAll('.product-card');
+const allSections = document.querySelectorAll('.cat-section');
+const noResults = document.getElementById('no-results');
+const bundle = document.getElementById('bundle-section');
+searchInput.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  if (!q) { allCards.forEach(c => c.classList.remove('hidden')); allSections.forEach(s => s.style.display = ''); noResults.style.display = 'none'; bundle.style.display = ''; return; }
+  let total = 0;
+  allSections.forEach(sec => {
+    const cards = sec.querySelectorAll('.product-card'); let vis = 0;
+    cards.forEach(c => { const match = (c.getAttribute('data-name') || '').toLowerCase().includes(q); c.classList.toggle('hidden', !match); if (match) { vis++; total++; } });
+    sec.style.display = vis > 0 ? '' : 'none';
+  });
+  bundle.style.display = total > 0 ? '' : 'none';
+  noResults.style.display = total === 0 ? 'block' : 'none';
+});
+const sections = document.querySelectorAll('.cat-section');
+const navLinks = document.querySelectorAll('#cat-nav a');
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { const id = e.target.getAttribute('data-section'); navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-target') === id)); } }); }, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+document.querySelectorAll('.mob-btn').forEach(btn => { btn.addEventListener('click', function() { document.querySelectorAll('.mob-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); const t = this.dataset.target; if (t === 'all') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } const el = document.getElementById('cat-' + t); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+
+// WHO IS THIS FOR — tab switching
+document.querySelectorAll('.wif-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.wif-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.wif-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    const panel = document.getElementById('panel-' + this.dataset.panel);
+    if (panel) panel.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

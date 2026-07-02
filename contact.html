@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact the Creator — Product4u</title>
+<meta name="description" content="Have questions about our premium website templates, Notion setups, or niche spreadsheets? Drop a message directly to the creator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080C14;--surface:#0F1623;--surface-2:#141E2E;
+  --border:#1A2332;--border-hover:#263345;
+  --text:#F0F4FF;--muted:#7A8FAD;
+  --accent:#00E676;--accent-dim:rgba(0,230,118,0.1);--accent-dark:#00B35A;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-between;padding:1.25rem 2.5rem;background:rgba(8,12,20,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:1.75rem;align-items:center;margin-left:auto}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{background:var(--accent)!important;color:#060A0F!important;padding:0.5rem 1.25rem!important;border-radius:100px;font-weight:600!important;transition:background 0.2s!important}
+.nav-cta:hover{background:var(--accent-dark)!important;color:#fff!important}
+
+/* HERO SECTION */
+.contact-hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden}
+.contact-hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(0,230,118,0.06) 0%,transparent 70%);pointer-events:none}
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:0.625rem}
+.contact-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;max-width:800px;margin-bottom:1rem}
+.contact-hero h1 em{font-style:italic;color:var(--accent)}
+.contact-sub{color:var(--muted);font-size:1.05rem;max-width:580px;line-height:1.65}
+
+/* MAIN LAYOUT SPLIT */
+.contact-layout{max-width:1160px;margin:0 auto;padding:0 2rem 6rem;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+
+/* LEFT COLUMN: trust & info cards */
+.info-sidebar{display:flex;flex-direction:column;gap:1.5rem}
+.guarantee-box{background:linear-gradient(135deg,var(--surface) 0%,rgba(0,230,118,0.03) 100%);border:1px solid rgba(0,230,118,0.2);border-radius:16px;padding:2rem}
+.guarantee-box h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:0.75rem}
+.guarantee-box p{font-size:0.875rem;color:var(--muted);line-height:1.6}
+.guarantee-box strong{color:var(--text)}
+
+.channel-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.channel-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);border:1px solid rgba(0,230,118,0.2);display:flex;align-items:center;justify-content:center;font-size:1.125rem;flex-shrink:0}
+.channel-title{font-weight:600;font-size:0.9375rem;margin-bottom:0.25rem}
+.channel-desc{font-size:0.8125rem;color:var(--muted);line-height:1.55}
+.channel-link{color:var(--accent);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem}
+
+/* RIGHT COLUMN: premium form */
+.form-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2.5rem;box-shadow:0 30px 60px -20px rgba(0,0,0,0.4)}
+.form-field{margin-bottom:1.25rem}
+.form-field label{display:block;font-size:0.8125rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+.form-required{color:var(--accent)}
+.form-input,.form-textarea,.form-select{width:100%;background:var(--bg);border:1px solid var(--border-hover);border-radius:10px;padding:0.8rem 1rem;color:var(--text);font-family:'Inter',sans-serif;font-size:0.9375rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.form-select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237A8FAD' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");background-repeat:no-repeat;background-position:right 1rem center;background-size:1rem;padding-right:2.5rem}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,230,118,0.1)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-submit{width:100%;background:var(--accent);color:#060A0F;font-family:'Inter',sans-serif;font-weight:700;font-size:0.9375rem;padding:0.95rem;border-radius:100px;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s;margin-top:0.5rem}
+.form-submit:hover{background:var(--accent-dark);transform:translateY(-1px)}
+
+/* FAQ QUICK STRIP */
+.faq-preview{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 2rem}
+.faq-grid{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.faq-item{display:flex;flex-direction:column;gap:0.35rem}
+.faq-q{font-weight:600;font-size:0.9375rem;color:var(--text)}
+.faq-a{font-size:0.8125rem;color:var(--muted);line-height:1.6}
+
+/* FOOTER */
+.footer-wrap{border-top:1px solid var(--border);padding:3rem 2rem 2rem;max-width:1160px;margin:0 auto}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.125rem;font-weight:700;text-decoration:none;color:var(--text)}
+.footer-logo span{color:var(--accent)}
+.footer-bottom p{color:var(--muted);font-size:0.8125rem}
+
+/* RESPONSIVE DESIGN */
+@media(max-width:960px){
+  .contact-layout{grid-template-columns:1fr;gap:3rem}
+}
+@media(max-width:640px){
+  nav{padding:1rem 1.25rem}
+  .contact-hero{padding:7rem 1.25rem 3rem}
+  .contact-layout{padding:0 1.25rem 4rem}
+  .form-box{padding:1.5rem}
+  .faq-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo">Product<span>4u</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="demo.html">Demos</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<header class="contact-hero">
+  <div class="eyebrow">Connect Directly</div>
+  <h1>Let's build something <em>smarter</em></h1>
+  <p class="contact-sub">Have questions about a template, need payment confirmation, or planning a custom design workflow? Drop a message here.</p>
+</header>
+
+<!-- MAIN CONTENT SPLIT -->
+<main class="contact-layout">
+
+  <!-- LEFT SIDEBAR INFO -->
+  <aside class="info-sidebar">
+    <div class="guarantee-box">
+      <h3>The Human Guarantee</h3>
+      <p>Product4u is an independent digital studio built by <strong>one solo creator</strong>. When you write to us, your message doesn't land with an automated support bot or an outsourced team. It goes directly to the desk of the designer who built your tool.</p>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-icon">📧</div>
+      <div>
+        <div class="channel-title">Direct Inquiries</div>
+        <p class="channel-desc">Prefer working out of your regular email client? Bypass the system and send a traditional message directly.</p>
+        <a href="mailto:your@email.com" class="channel-link">your@email.com &rarr;</a>
+      </div>
+    </div>
+
+    <div class="channel-card">
+      <div class="channel-icon">⚡</div>
+      <div>
+        <div class="channel-title">Turnaround Framework</div>
+        <p class="channel-desc">Every inquiry receives deep attention. Most replies loop back within 3-6 hours. Peak volumes are handled guaranteed within 24 hours.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT SIDE FORM -->
+  <section class="form-box">
+    <form id="contact-form">
+      <div class="form-field">
+        <label for="user-name">Your Full Name <span class="form-required">*</span></label>
+        <input class="form-input" type="text" id="user-name" name="name" placeholder="Alex Rivers" required />
+      </div>
+
+      <div class="form-field">
+        <label for="user-email">Email Address <span class="form-required">*</span></label>
+        <input class="form-input" type="email" id="user-email" name="email" placeholder="alex@domain.com" required />
+      </div>
+
+      <div class="form-field">
+        <label for="inquiry-reason">Reason for Reaching Out</label>
+        <select class="form-select" id="inquiry-reason" name="reason">
+          <option value="general">General Question</option>
+          <option value="purchase">Buy a Template / Order Verification</option>
+          <option value="custom">Custom Design Request</option>
+          <option value="bug">Report a Broken Link or Bug</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="user-message">Your Message <span class="form-required">*</span></label>
+        <textarea class="form-textarea" id="user-message" name="message" placeholder="Tell us how we can help..." required></textarea>
+      </div>
+
+      <button type="submit" class="form-submit" id="submit-btn">Send Secure Message &rarr;</button>
+    </form>
+  </section>
+
+</main>
+
+<!-- QUICK FAQ STRIP -->
+<section class="faq-preview">
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">When will I get my file link?</div>
+      <div class="faq-a">For manual orders processed by email link, your secure setup configurations go out within 24 hours of transaction processing.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can you customize an item for me?</div>
+      <div class="faq-a">Yes! Select "Custom Design Request" inside our contact form dashboard, add details about the size and scale of your workflow, and we'll reply with a custom quote.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-wrap">
+  <div class="footer-bottom">
+    <a href="index.html" class="footer-logo">Product<span>4u</span></a>
+    <p>&copy; 2025 Product4u &middot; Custom Designed Architecture worldwide.</p>
+  </footer>
+</footer>
+
+<script>
+// Dynamic UX Helper: Changes textarea placeholders depending on what option is clicked
+const reasonSelect = document.getElementById('inquiry-reason');
+const messageArea = document.getElementById('user-message');
+
+const dynamicPlaceholders = {
+  general: "Tell us how we can help...",
+  purchase: "Mention the exact product you're looking to purchase so we can generate your billing credentials faster...",
+  custom: "Describe your brand goals, target platform (HTML, Notion, Canva), and estimated timeline targets...",
+  bug: "What template is acting up? Please paste errors or links so I can fix it for you immediately..."
+};
+
+reasonSelect.addEventListener('change', (e) => {
+  messageArea.placeholder = dynamicPlaceholders[e.target.value] || dynamicPlaceholders.general;
+});
+
+// Form Redirection Fallback script
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('user-name').value;
+  const email = document.getElementById('user-email').value;
+  const reason = reasonSelect.options[reasonSelect.selectedIndex].text;
+  const text = messageArea.value;
+  
+  const subject = encodeURIComponent(`Product4u Corner: [${reason}] from ${name}`);
+  const body = encodeURIComponent(`Sender Name: ${name}\nSender Email: ${email}\n\nMessage Structure:\n${text}`);
+  
+  // Directly fires email system with beautiful data injection framework
+  window.location.href = `mailto:your@email.com?subject=${subject}&body=${body}`;
+});
+</script>
+</body>
+</html>
