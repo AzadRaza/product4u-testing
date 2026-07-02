@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Product4u</title>
+<meta name="description" content="Terms of Service for Product4u — the rules and conditions for using our website and purchasing our digital products.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080C14;--surface:#0F1623;--surface-2:#141E2E;
+  --border:#1A2332;--border-hover:#263345;
+  --text:#F0F4FF;--muted:#7A8FAD;
+  --accent:#00E676;--accent-dim:rgba(0,230,118,0.1);--accent-dark:#00B35A;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem;background:rgba(8,12,20,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{background:var(--accent)!important;color:#060A0F!important;padding:0.5rem 1.25rem!important;border-radius:100px;font-weight:600!important}
+.nav-cta:hover{background:var(--accent-dark)!important;color:#fff!important}
+
+.legal-header{padding:7.5rem 2rem 3rem;text-align:center;max-width:760px;margin:0 auto}
+.eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:0.625rem}
+.legal-header h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.75rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:0.875rem}
+.legal-header p{color:var(--muted);font-size:0.9375rem;line-height:1.65}
+.legal-updated{display:inline-block;margin-top:1rem;font-size:0.8125rem;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:0.4rem 1rem;border-radius:100px}
+
+.legal-body{max-width:760px;margin:0 auto;padding:1rem 2rem 6rem}
+.legal-toc{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:3rem}
+.legal-toc-title{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.875rem}
+.legal-toc ol{margin-left:1.125rem;display:flex;flex-direction:column;gap:0.45rem}
+.legal-toc a{color:var(--text);text-decoration:none;font-size:0.875rem;transition:color 0.2s}
+.legal-toc a:hover{color:var(--accent)}
+
+.legal-section{margin-bottom:2.5rem;scroll-margin-top:6rem}
+.legal-section h2{font-family:'Playfair Display',serif;font-size:1.375rem;font-weight:700;margin-bottom:1rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:0.625rem}
+.legal-section h2 .num{color:var(--accent);font-size:1rem;font-weight:700}
+.legal-section p{font-size:0.9375rem;color:var(--muted);margin-bottom:1rem}
+.legal-section p strong{color:var(--text)}
+.legal-section ul{margin:0.75rem 0 1rem 1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.legal-section ul li{font-size:0.9375rem;color:var(--muted);line-height:1.65}
+.legal-section ul li strong{color:var(--text)}
+.legal-callout{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:1.125rem 1.375rem;margin:1.25rem 0;border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.legal-callout p{margin:0;font-size:0.875rem;color:var(--muted)}
+.legal-callout p strong{color:var(--accent)}
+.legal-callout.warn{border-left-color:#F59E0B}
+.legal-callout.warn p strong{color:#F59E0B}
+
+.legal-contact-box{background:linear-gradient(135deg,var(--surface) 0%,rgba(0,230,118,0.05) 100%);border:1px solid rgba(0,230,118,0.25);border-radius:16px;padding:1.75rem;margin-top:3rem;text-align:center}
+.legal-contact-box h3{font-family:'Playfair Display',serif;font-size:1.125rem;font-weight:700;margin-bottom:0.5rem}
+.legal-contact-box p{font-size:0.875rem;color:var(--muted);margin-bottom:1.125rem}
+.btn-primary{background:var(--accent);color:#060A0F;font-family:'Inter',sans-serif;font-weight:600;font-size:0.9375rem;padding:0.75rem 1.75rem;border-radius:100px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:background 0.2s,transform 0.15s}
+.btn-primary:hover{background:var(--accent-dark);color:#fff;transform:translateY(-2px)}
+
+footer{border-top:1px solid var(--border);padding:2.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1160px;margin:0 auto}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.125rem;font-weight:700}
+.footer-logo span{color:var(--accent)}
+footer p{color:var(--muted);font-size:0.8125rem}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--muted);font-size:0.8125rem;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--text)}
+
+@media(max-width:600px){nav{padding:1rem 1.25rem}.nav-links{gap:1rem}.legal-header{padding:6rem 1.25rem 2rem}.legal-body{padding:1rem 1.25rem 4rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Product<span>4u</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="demo.html">Demos</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<div class="legal-header">
+  <div class="eyebrow">Legal</div>
+  <h1>Terms of Service</h1>
+  <p>The rules that govern your use of this website and your purchase of any product from Product4u. Please read these carefully before using the site or buying anything.</p>
+  <span class="legal-updated">Last updated: June 30, 2026</span>
+</div>
+
+<div class="legal-body">
+
+  <div class="legal-toc">
+    <div class="legal-toc-title">On this page</div>
+    <ol>
+      <li><a href="#acceptance">1. Acceptance of these terms</a></li>
+      <li><a href="#who-we-are">2. About Product4u</a></li>
+      <li><a href="#products">3. Our products</a></li>
+      <li><a href="#ordering">4. How ordering and payment works</a></li>
+      <li><a href="#delivery">5. Delivery of digital products</a></li>
+      <li><a href="#license">6. Your license to use what you buy</a></li>
+      <li><a href="#prohibited">7. What you may not do</a></li>
+      <li><a href="#ip">8. Intellectual property</a></li>
+      <li><a href="#availability">9. Product availability and "Coming Soon" items</a></li>
+      <li><a href="#disclaimer">10. Disclaimer of warranties</a></li>
+      <li><a href="#liability">11. Limitation of liability</a></li>
+      <li><a href="#refunds-link">12. Refunds</a></li>
+      <li><a href="#third-party-tools">13. Third-party tools required to use products</a></li>
+      <li><a href="#changes-terms">14. Changes to these terms</a></li>
+      <li><a href="#governing-law">15. Governing law</a></li>
+      <li><a href="#contact-terms">16. Contact us</a></li>
+    </ol>
+  </div>
+
+  <div class="legal-section" id="acceptance">
+    <h2><span class="num">01</span> Acceptance of these terms</h2>
+    <p>By accessing this website, browsing our shop, purchasing any product, or submitting the feedback form, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use this website or purchase from us.</p>
+  </div>
+
+  <div class="legal-section" id="who-we-are">
+    <h2><span class="num">02</span> About Product4u</h2>
+    <p>Product4u is an independently operated digital products store, run by a single creator. We design, build, test, and sell digital templates, spreadsheets, design assets, and related digital tools. We are not a corporation, agency, or marketplace platform — purchases are made directly with the individual operating this store.</p>
+  </div>
+
+  <div class="legal-section" id="products">
+    <h2><span class="num">03</span> Our products</h2>
+    <p>All products sold on Product4u are <strong>digital products</strong> delivered electronically — including but not limited to website templates, spreadsheets, Notion templates, Canva templates, digital planners, AI prompt packs, printable art, wedding stationery, online courses, and business document templates. No physical goods are shipped.</p>
+    <p>Product descriptions, previews, and demo pages are provided to give an accurate representation of each product. While we make every effort to ensure accuracy, minor variations between previews and final files may occur as products are refined and improved over time.</p>
+  </div>
+
+  <div class="legal-section" id="ordering">
+    <h2><span class="num">04</span> How ordering and payment works</h2>
+    <p>Product4u currently processes orders via direct email rather than an automated checkout system. When you click "Buy via Email" on any product, your email client opens with a pre-filled message. After you send this email, we respond with payment instructions.</p>
+    <ul>
+      <li>We accept payment via PayPal, debit/credit card, or bank transfer, depending on your location and preference.</li>
+      <li>Your order is confirmed once payment has been received and verified.</li>
+      <li>All prices are listed in US Dollars (USD) unless otherwise stated.</li>
+      <li>We reserve the right to change product prices at any time without prior notice, though the price you pay is the price confirmed at the time of your order.</li>
+    </ul>
+    <div class="legal-callout warn">
+      <p><strong>Current stage notice:</strong> Product4u is in an early, actively developed stage. As explained on our homepage, we are testing on a free hosting platform and do not yet have an automated payment checkout built into the site. All purchases are currently completed manually via email. This will not affect the quality or delivery of what you purchase.</p>
+    </div>
+  </div>
+
+  <div class="legal-section" id="delivery">
+    <h2><span class="num">05</span> Delivery of digital products</h2>
+    <p>Once your payment is confirmed, we aim to deliver your purchased files within <strong>24 hours</strong>, typically much sooner. Delivery is made via email, in the form of a downloadable file, a shared template link (such as Notion or Canva), or a Google Sheets link, depending on the product type.</p>
+    <p>It is your responsibility to provide an accurate email address and to check your spam or promotions folder if a delivery email does not arrive within the expected timeframe. If you do not receive your product within 48 hours of payment, please contact us immediately.</p>
+  </div>
+
+  <div class="legal-section" id="license">
+    <h2><span class="num">06</span> Your license to use what you buy</h2>
+    <p>When you purchase a product from Product4u, you are granted a <strong>personal and limited commercial use license</strong>. This means:</p>
+    <ul>
+      <li>You may use the product for your own personal or business purposes.</li>
+      <li>You may use the product on behalf of a client (for example, building a website for someone else using our template).</li>
+      <li>You may customise, edit, and modify the files as needed for your use case.</li>
+    </ul>
+    <p>This license does <strong>not</strong> permit you to resell, redistribute, or repackage the original product files as your own standalone product on any marketplace, store, or platform — see Section 7 for full details.</p>
+  </div>
+
+  <div class="legal-section" id="prohibited">
+    <h2><span class="num">07</span> What you may not do</h2>
+    <p>By purchasing from Product4u, you agree that you will not:</p>
+    <ul>
+      <li>Resell, redistribute, or share the original product files with others</li>
+      <li>Upload our products to any other digital marketplace, template store, or free resource site</li>
+      <li>Claim authorship or ownership of the underlying design or template structure</li>
+      <li>Use our products to build a directly competing template or digital product business based substantially on our designs</li>
+      <li>Use our website, products, or feedback form for any unlawful purpose</li>
+    </ul>
+    <p>Violation of these terms may result in being denied future service and, where applicable, legal action to protect our intellectual property.</p>
+  </div>
+
+  <div class="legal-section" id="ip">
+    <h2><span class="num">08</span> Intellectual property</h2>
+    <p>All designs, code, layouts, written content, and branding on this website and within our products remain the intellectual property of Product4u and its creator, except where you have purchased a license as described in Section 6. Purchasing a product transfers a usage license to you — it does not transfer ownership of the underlying design or intellectual property.</p>
+  </div>
+
+  <div class="legal-section" id="availability">
+    <h2><span class="num">09</span> Product availability and "Coming Soon" items</h2>
+    <p>Our shop and demo pages display products marked as <strong>"Available Now"</strong> and <strong>"Coming Soon."</strong> Only products marked "Available Now" can currently be purchased and delivered. Products marked "Coming Soon" are in active development, and clicking "Notify Me" simply registers your interest — it does not constitute a purchase, order, or payment obligation of any kind.</p>
+    <p>Estimated prices shown for "Coming Soon" products may change before final release.</p>
+  </div>
+
+  <div class="legal-section" id="disclaimer">
+    <h2><span class="num">10</span> Disclaimer of warranties</h2>
+    <p>Our products are provided "as is." While we test every product before listing it for sale, we do not guarantee that any product will be completely free of errors, perfectly suited to every use case, or compatible with every device, browser, or software version. Website templates, for example, are tested on modern browsers but may not render identically on outdated software.</p>
+    <p>We make no warranty that using our products will result in any specific business outcome, such as increased sales, traffic, or revenue.</p>
+  </div>
+
+  <div class="legal-section" id="liability">
+    <h2><span class="num">11</span> Limitation of liability</h2>
+    <p>To the fullest extent permitted by law, Product4u and its creator shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of this website or any product purchased from it. Our total liability for any claim related to a purchase will not exceed the amount you paid for that specific product.</p>
+  </div>
+
+  <div class="legal-section" id="refunds-link">
+    <h2><span class="num">12</span> Refunds</h2>
+    <p>Our full refund and return policy is detailed on a separate page, as digital products have specific considerations that differ from physical goods. Please see our <strong>Refund Policy</strong> page for complete details before purchasing.</p>
+  </div>
+
+  <div class="legal-section" id="third-party-tools">
+    <h2><span class="num">13</span> Third-party tools required to use products</h2>
+    <p>Many of our products are designed to work with free third-party tools — such as Canva, Notion, Google Sheets, or a static website hosting platform of your choice. We do not control these third-party platforms, their pricing, their availability, or any changes they make to their free plans. We are not responsible for any disruption to your use of our products caused by changes made by these third-party services.</p>
+  </div>
+
+  <div class="legal-section" id="changes-terms">
+    <h2><span class="num">14</span> Changes to these terms</h2>
+    <p>We may revise these Terms of Service from time to time as our products, services, or business model evolve. Updates will be posted on this page with a revised "Last updated" date. Continued use of this website after changes are posted constitutes your acceptance of the revised terms.</p>
+  </div>
+
+  <div class="legal-section" id="governing-law">
+    <h2><span class="num">15</span> Governing law</h2>
+    <p>These terms shall be governed by and interpreted in accordance with applicable consumer protection laws relevant to digital goods, without regard to conflict of law principles. Any disputes arising from these terms will first be attempted to be resolved informally by contacting us directly.</p>
+  </div>
+
+  <div class="legal-section" id="contact-terms">
+    <h2><span class="num">16</span> Contact us</h2>
+    <p>If you have any questions about these Terms of Service, please reach out before completing a purchase — we're happy to clarify anything.</p>
+  </div>
+
+  <div class="legal-contact-box">
+    <h3>Questions about these terms?</h3>
+    <p>Email us directly and we'll get back to you personally — usually within 24 hours.</p>
+    <a href="mailto:your@email.com?subject=Terms of Service Question" class="btn-primary">Email Us →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Product<span>4u</span></div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="privacy-policy.html">Privacy</a>
+    <a href="terms-of-service.html">Terms</a>
+    <a href="refund-policy.html">Refunds</a>
+  </div>
+  <p>© 2025 Product4u · Digital products delivered worldwide</p>
+</footer>
+
+</body>
+</html>
